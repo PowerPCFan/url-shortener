@@ -1,7 +1,7 @@
 {
 	"name": "url-shortener",
-	"private": true,
-	"version": "0.0.1",
+	"private": false,
+	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -13,9 +13,9 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.0.0",
-		"@sveltejs/adapter-cloudflare": "^7.0.4",
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"sass-embedded": "^1.91.0",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
@@ -23,6 +23,6 @@
 		"vite-plugin-devtools-json": "^0.2.0"
 	},
 	"dependencies": {
-		"wrangler": "^4.20.5"
+		"@upstash/redis": "^1.35.3"
 	}
 }

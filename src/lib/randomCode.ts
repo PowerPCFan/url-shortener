@@ -1,9 +1,3 @@
-// Old UUID generation method
-// export function generateRandomCode(length: number = 6): string {
-//   const uuid = crypto.randomUUID().replace(/-/g, '');
-//   return uuid.substring(0, length);
-// }
-
 // New Base62 generation method
 export function generateRandomCode(length: number = 6): string {
     const charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
