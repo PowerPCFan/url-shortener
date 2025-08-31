@@ -29,12 +29,12 @@ export const POST: RequestHandler = async ({ request }) => {
     const existingCode = await get(url);
 
     if (existingCode) {
-        return new Response(JSON.stringify({ short: `/l/${existingCode}` }));
+        return new Response(JSON.stringify({ short: `https://sl.powerpcfan.xyz/l/${existingCode}` }));
     }
 
     const code = generateRandomCode(6);
     await set(code, url);
     await set(url, code); // Add a 2nd K/V pair for reverse lookup
 
-    return new Response(JSON.stringify({ short: `/l/${code}` }));
+    return new Response(JSON.stringify({ short: `https://sl.powerpcfan.xyz/l/${code}` }));
 };

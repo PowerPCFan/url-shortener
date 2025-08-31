@@ -2,20 +2,36 @@
     import { page } from "$app/state";
 
     let status = page?.status;
-    let error = page?.error;
+    let errorMessage = page?.error?.message || "Unknown Error";
 
-    let fourZeroFour: boolean = $state(false);
-    if (status === 404) {
-        fourZeroFour = true;
-    }
+    let linkNotFound = errorMessage.toLowerCase() === "link not found";
 </script>
 
 <svelte:head>
-    <title>Error {status}</title>
+    <title>{linkNotFound ? 'Link Not Found!' : 'Error ' + status}</title>
 </svelte:head>
 
 <div class="error-container">
-    <h1>{status}</h1>
-    <p>{error?.message}</p>
-    <a href="/">Go back home</a>
+    {#if linkNotFound}
+        <h1>Link Not Found</h1>
+        <p>This shortened link doesn't exist! (Did you type it properly?)</p>
+    {:else}
+        <h1>Error {status}: {errorMessage}</h1>
+    {/if}
+    <a href="/">Click here to go home</a>
 </div>
+
+<style lang="scss">
+    .error-container {
+        margin-inline: auto;
+        text-align: center;
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        p, a {
+            font-size: 1.5rem;
+        }
+    }
+</style>

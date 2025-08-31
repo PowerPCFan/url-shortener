@@ -44,10 +44,10 @@
         aspect-ratio: 1;
         position: absolute;
         width: 100%;
-        background-color: rgb(0, 123, 250);
+        background-color: var(--primary);
         border-radius: 100%;
         opacity: 0.02;
-        z-index: 0;
+        z-index: -1;
     }
 
     .circles {

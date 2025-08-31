@@ -1,5 +1,7 @@
 <script lang="ts">
-    import ErrorCard from "$lib/components/ErrorCard.svelte";
+    import URLActions from '$lib/components/URLActions.svelte';
+    import Card from "$lib/components/Card.svelte";
+    import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
     let url = $state("");
     let short = $state("");
@@ -51,13 +53,16 @@
     <button onclick={shorten}>Shorten!</button>
 
     {#if loading}
-    <p>Loading...</p>
-    {/if}
-    {#if short}
-        <p>Shortened URL: <a href={short} target="_blank">{short}</a></p>
-    {/if}
-    {#if error}
-        <ErrorCard>{error}</ErrorCard>
+        <LoadingSpinner />
+    {:else if short}
+        <Card title="Your URL is ready!">
+            <!-- Shortened URL: <a href={short} target="_blank">{short}</a> -->
+            Short URL:
+            <input readonly={true} bind:value={short} />
+            <URLActions url={short} />
+        </Card>
+    {:else if error}
+        <Card error>{error}</Card>
     {/if}
 </div>
 
@@ -79,17 +84,16 @@
         input {
             padding: 0.5rem;
             font-size: 1rem;
-            width: 330px;
+            width: 430px;
             border: none;
             border-radius: 4px;
-            font-family: var(--stack);
             margin: 0;
         }
 
         button {
             padding: 0.5rem 1rem;
             font-size: 1.2rem;
-            background-color: #007bff;
+            background-color: var(--primary);
             border: none;
             color: var(--light);
             border-radius: 8px;
@@ -98,7 +102,7 @@
             transition: background-color 0.2s ease-in-out;
 
             &:hover {
-                background-color: darken(#007bff, 15%);
+                background-color: var(--primary-darker);
             }
         }
     }
