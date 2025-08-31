@@ -84,7 +84,7 @@ export async function urlAllowed(url: string): Promise<boolean> {
             return false; // Invalid URL is considered "blocked"
         }
 
-        if (url === "https://test-blocklist.fake-url") {
+        if (url === "https://blockedsite.com/") {
             return false;
         }
 

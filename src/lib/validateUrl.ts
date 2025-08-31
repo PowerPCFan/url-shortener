@@ -3,7 +3,7 @@ export function urlIsValid(inputString: string): boolean {
         let url;
         url = new URL(inputString);
         return true;
-    } catch (_) {
+    } catch (e) {
         return false;
     }
 }

@@ -4,16 +4,17 @@ import { urlAllowed } from "$lib/urlChecker";
 import { urlIsValid } from "$lib/validateUrl";
 import { set, get } from "$lib/redis";
 
+// todo: move to external file
+function formatUrl(url: string): string {
+    return encodeURIComponent(url.trim());
+}
+
 export const POST: RequestHandler = async ({ request }) => {
-    const { url } = await request.json();
+    let { url } = await request.json();
 
-    if (!urlIsValid(url)) {
-        return new Response(JSON.stringify({ error: "URL is invalid." }), {
-            status: 400,
-        });
-    }
+    url = formatUrl(url);
 
-    if (!url || typeof url !== "string") {
+    if ((!url) || (typeof url !== "string") || (!urlIsValid(url))) {
         return new Response(JSON.stringify({ error: "URL is invalid." }), {
             status: 400,
         });
