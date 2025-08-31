@@ -6,7 +6,14 @@ import { set, get } from "$lib/redis";
 
 // todo: move to external file
 function formatUrl(url: string): string {
-    return encodeURIComponent(url.trim());
+    url = url.trim();
+    
+    try {
+        const urlObj = new URL(url);
+        return urlObj.href;
+    } catch {
+        return url;
+    }
 }
 
 export const POST: RequestHandler = async ({ request }) => {
