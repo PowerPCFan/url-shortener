@@ -49,16 +49,15 @@
 
 <div class="page-container">
     <h1>URL Shortener</h1>
-    <input bind:value={url} placeholder="Paste your URL..." />
+    <input class="main-url-input" bind:value={url} placeholder="Paste your URL..." />
     <button onclick={shorten}>Shorten!</button>
 
     {#if loading}
         <LoadingSpinner />
     {:else if short}
         <Card title="Your URL is ready!">
-            <!-- Shortened URL: <a href={short} target="_blank">{short}</a> -->
             Short URL:
-            <input readonly={true} bind:value={short} />
+            <input class="short-url-input-display" readonly={true} onclick={event => event?.currentTarget?.select()} bind:value={short} />
             <URLActions url={short} />
         </Card>
     {:else if error}
@@ -84,10 +83,17 @@
         input {
             padding: 0.5rem;
             font-size: 1rem;
-            width: 430px;
             border: none;
             border-radius: 4px;
             margin: 0;
+
+            &.short-url-input-display {
+                width: 90%;
+            }
+
+            &.main-url-input {
+                width: 430px;
+            }
         }
 
         button {

@@ -4,9 +4,10 @@ import { urlAllowed } from "$lib/urlChecker";
 import { urlIsValid } from "$lib/validateUrl";
 import { set, get } from "$lib/redis";
 
-// todo: move to external file
 function formatUrl(url: string): string {
-    url = url.trim();
+    if (url.endsWith('/')) {
+        url = url.slice(0, -1);
+    }
     
     try {
         const urlObj = new URL(url);
@@ -16,39 +17,37 @@ function formatUrl(url: string): string {
     }
 }
 
+function response(data: object, status: number): Response {
+    return new Response(JSON.stringify(data), {status: status});
+}
+
 export const POST: RequestHandler = async ({ request }) => {
     let { url } = await request.json();
 
     url = formatUrl(url);
 
-    if (!urlIsValid(url)) {
-        return new Response(JSON.stringify({ error: "URL is invalid." }), {
-            status: 400,
-        });
+    if (!url || typeof url !== "string") {
+        return response({ error: "URL is invalid." }, 400);
     }
 
-    if (!url || typeof url !== "string") {
-        return new Response(JSON.stringify({ error: "URL is invalid." }), {
-            status: 400,
-        });
+    if (!urlIsValid(url)) {
+        return response({ error: "URL is invalid." }, 400);
     }
 
     if (!(await urlAllowed(url))) {
-        return new Response(JSON.stringify({ error: `The URL ${url} is blocked.` }), {
-            status: 403,
-        });
+        return response({ error: `The URL ${url} is blocked.` }, 403);
     }
 
     // Check if the URL is already shortened using the reverse lookup k/v pair that has the URL as the key
     const existingCode = await get(url);
 
     if (existingCode) {
-        return new Response(JSON.stringify({ short: `https://sl.powerpcfan.xyz/l/${existingCode}` }));
+        return response({ short: `https://sl.powerpcfan.xyz/l/${existingCode}` }, 200);
     }
 
     const code = generateRandomCode(6);
     await set(code, url);
     await set(url, code); // Add a 2nd K/V pair for reverse lookup
 
-    return new Response(JSON.stringify({ short: `https://sl.powerpcfan.xyz/l/${code}` }));
+    return response({ short: `https://sl.powerpcfan.xyz/l/${code}` }, 200);
 };
