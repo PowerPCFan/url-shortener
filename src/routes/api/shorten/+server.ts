@@ -14,7 +14,13 @@ export const POST: RequestHandler = async ({ request }) => {
 
     url = formatUrl(url);
 
-    if ((!url) || (typeof url !== "string") || (!urlIsValid(url))) {
+    if (!urlIsValid(url)) {
+        return new Response(JSON.stringify({ error: "URL is invalid." }), {
+            status: 400,
+        });
+    }
+
+    if (!url || typeof url !== "string") {
         return new Response(JSON.stringify({ error: "URL is invalid." }), {
             status: 400,
         });
