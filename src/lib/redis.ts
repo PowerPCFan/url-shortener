@@ -13,7 +13,8 @@ export async function get(key: string): Promise<string | null> {
     return idk;
 }
 
-export async function set(key: string, value: string, opts?: SetCommandOptions | undefined): Promise<string | null> {
+export async function set(key: string, value: string, prefix?: string | undefined, opts?: SetCommandOptions | undefined): Promise<string | null> {
+    key = prefix ? `${prefix}:${key}` : key;
     const idk = await redis.set(key, value, opts);
     return idk;
 }
