@@ -49,7 +49,7 @@
 
 <div class="page-container">
     <h1>URL Shortener</h1>
-    <input class="main-url-input" bind:value={url} placeholder="Paste your URL..." />
+    <input class="main-url-input" onkeydown={(e) => e.key.toLowerCase() === "enter" && shorten()} bind:value={url} placeholder="Paste your URL..." />
     <button onclick={shorten}>Shorten!</button>
 
     {#if loading}
@@ -92,7 +92,8 @@
             }
 
             &.main-url-input {
-                width: 430px;
+                width: 90vw;
+                max-width: 430px;
             }
         }
 

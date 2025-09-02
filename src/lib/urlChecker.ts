@@ -13,10 +13,7 @@ async function fetchBlocklist(url: string): Promise<string[]> {
         }
         
         const text = await response.text();
-        return text
-            .split('\n')
-            .map(line => line.trim())
-            .filter(line => line && !line.startsWith('#'));
+        return text.split('\n').map(line => line.trim()).filter(line => line && !line.startsWith('#'));
     } catch (error) {
         console.error(`Failed to fetch blocklist from ${url}:`, error);
         return []; // Return empty array on error
@@ -45,15 +42,6 @@ async function loadBlocklists(): Promise<Set<string>> {
     return loadingPromise;
 }
 
-function extractHostname(url: string): string | null {
-    try {
-        const hostname = new URL(url).hostname;
-        return hostname.startsWith('www.') ? hostname.slice(4) : hostname;
-    } catch {
-        return null;
-    }
-}
-
 function isDomainBlocked(hostname: string, blockedDomains: Set<string>): boolean {
     // check for exact domain match 
     if (blockedDomains.has(hostname)) {
@@ -72,6 +60,19 @@ function isDomainBlocked(hostname: string, blockedDomains: Set<string>): boolean
     return false;
 }
 
+function containsUnicodeCharacters(hostname: string): boolean {
+    const domainParts = hostname.split('.');
+    const unicodeCharacterRegex = /[^\u0000-\u007F]/;
+
+    for (const part of domainParts) {
+        if (part.startsWith("xn--") || unicodeCharacterRegex.test(part)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 export async function urlAllowed(url: string): Promise<boolean> {
     try {
         // load blocklists
@@ -79,16 +80,33 @@ export async function urlAllowed(url: string): Promise<boolean> {
             blockedDomains = await loadBlocklists();
         }
 
-        const hostname = extractHostname(url);
+        const hostname = new URL(url).hostname;
         if (!hostname) {
             return false; // Invalid URL is considered "blocked"
         }
 
-        if (url === "https://blockedsite.com/") {
+        const urlShorteners = ["sl.powerpcfan.xyz", "sl.expect.ovh", "tinyurl.com", "bit.ly", "bitly.com"]; // will expand this later
+
+        for (const shortener of urlShorteners) {
+            if (hostname === shortener) {
+                return false; // prevent my shortener from shortening already shortened links which is pointless and can cause infinite redirect loops
+            }
+        }
+
+        // url for testing what happens on the UI side if a site is blocked
+        if (url === "https://blockedsite.com") {
             return false;
         }
 
-        return !isDomainBlocked(hostname, blockedDomains);
+        if (isDomainBlocked(hostname, blockedDomains)) {
+            return false;
+        }
+
+        if (containsUnicodeCharacters(hostname)) {
+            return false;
+        }
+
+        return true; // passed all checks - is allowed
     } catch (error) {
         console.error('Error checking URL allowlist:', error);
         return false; // Treat as "blocked" on error to be safe

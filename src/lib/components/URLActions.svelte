@@ -1,14 +1,14 @@
 <script lang="ts">
     import { notifications } from '$lib/stores/notificationStore';
 
-    let { url }: { url: string } = $props();
+    let { url } = $props();
 
     async function onCopy() {
         try {
             await navigator.clipboard.writeText(url);
             notifications.info("URL copied to clipboard", { title: "Success" });
         } catch (err) {
-            notifications.error("Failed to copy URL", { title: "Copy Error" });
+            notifications.error("Failed to copy URL.", { title: "Copy Error" });
         }
     }
 

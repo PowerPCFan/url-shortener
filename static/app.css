@@ -12,6 +12,10 @@
     --link: #4a97ce;
 }
 
+#sveltekit-body {
+    display: contents;
+}
+
 input {
     font-family: var(--stack);
     color: var(--dark);

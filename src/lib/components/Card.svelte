@@ -1,16 +1,15 @@
-<script>
-    let { error = false, title = "aaaaa", children } = $props();
+<script lang="ts">
+    let { error = false, title = undefined, children } = $props();
 
-    // absolutely horrific way of doing this
-    if (title === "aaaaa") {
-        title = error ? 'Error' : 'Info'
-    }
+    title = title ?? (error ? 'Error' : 'Info');
+
+    const icon = error ? '❗' : 'ℹ️'
 </script>
 
-<div class="card{error ? ' error' : ''}">
-    <div class="icon{error ? ' error' : ''}">{@html error ? '&#10071;' : 'ℹ️'}</div>
+<div class="card {error ? 'error' : 'info'}">
+    <div class="main-icon {error ? 'error' : 'info'}">{icon}</div>
     <div class="content">
-        <h2 class="{error ? 'error' : ''}">{title}</h2>
+        <h2 class="{error ? 'error' : ''}"><span class="inline-icon">{@html icon + '&nbsp;'}</span>{title}</h2>
         <p>{@render children()}</p>
     </div>
 </div>
@@ -34,12 +33,26 @@
         }
     }
 
-    .icon {
+    .main-icon {
         font-size: 2rem;
         margin-inline: -0.1rem;
 
         &.error {
             margin-inline: -0.5rem;
+        }
+    }
+
+    .inline-icon {
+        display: none;
+    }
+
+    @media (max-width: 475px) {
+        .main-icon {
+            display: none;
+        }
+
+        .inline-icon {
+            display: inline-block;
         }
     }
 

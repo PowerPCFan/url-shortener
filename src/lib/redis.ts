@@ -7,14 +7,13 @@ const redis = new Redis({
     token: env.REDIS_TOKEN,
 })
 
-// ion know why i have these but whatever
 export async function get(key: string): Promise<string | null> {
-    const idk: string | null = await redis.get(key);
-    return idk;
+    const result: string | null = await redis.get(key);
+    return result;
 }
 
 export async function set(key: string, value: string, prefix?: string | undefined, opts?: SetCommandOptions | undefined): Promise<string | null> {
     key = prefix ? `${prefix}:${key}` : key;
-    const idk = await redis.set(key, value, opts);
-    return idk;
+    const result = await redis.set(key, value, opts);
+    return result;
 }
