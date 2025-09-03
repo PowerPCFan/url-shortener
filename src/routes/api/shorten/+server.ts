@@ -10,9 +10,12 @@ function response(data: object, status: number): Response {
 }
 
 export const POST: RequestHandler = async ({ request }) => {
-    let { url } = await request.json();
+    const _protocol = request.headers.get("x-forwarded-proto") || "https";
+    const _host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "sl.powerpcfan.xyz";
+    const shortenerUrl = `${_protocol}://${_host}`;
 
-    url = normalizeUrl(url); // this is important - normalize url
+    let { url } = await request.json();
+    url = normalizeUrl(url); // this is important
 
     if (!url || typeof url !== "string") {
         return response({ error: "URL is invalid." }, 400);
@@ -30,12 +33,12 @@ export const POST: RequestHandler = async ({ request }) => {
     const existingCode = await get(url);
 
     if (existingCode) {
-        return response({ short: `https://sl.powerpcfan.xyz/${existingCode}` }, 200);
+        return response({ short: `${shortenerUrl}/${existingCode}` }, 200);
     }
 
     const code = generateRandomCode(6);
     await set(code, url);
     await set(url, code); // Add a 2nd K/V pair for reverse lookup
 
-    return response({ short: `https://sl.powerpcfan.xyz/${code}` }, 200);
+    return response({ short: `${shortenerUrl}/${code}` }, 200);
 };
