@@ -48,7 +48,7 @@
 </svelte:head>
 
 <div class="page-container">
-    <h1>URL Shortener</h1>
+    <h1>Shorten URL</h1>
     <input class="main-url-input" onkeydown={(e) => e.key.toLowerCase() === "enter" && shorten()} bind:value={url} placeholder="Paste your URL..." />
     <button onclick={shorten}>Shorten!</button>
 

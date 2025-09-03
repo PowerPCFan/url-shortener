@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, type Snippet } from "svelte";
 
-    let { children } = $props();
+    let { children, containerStyleArgs }: { children: Snippet<[]>, containerStyleArgs?: string } = $props();
 
     let amountOfBalls = 20;
 
@@ -24,7 +24,7 @@
     });
 </script>
 
-<div class="balls">
+<div class="balls" style="{containerStyleArgs}">
     <div class="circles">
         {#each balls as { x, y }}
             <div

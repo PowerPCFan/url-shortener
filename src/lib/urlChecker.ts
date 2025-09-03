@@ -85,17 +85,12 @@ export async function urlAllowed(url: string): Promise<boolean> {
             return false; // Invalid URL is considered "blocked"
         }
 
-        const urlShorteners = ["sl.powerpcfan.xyz", "sl.expect.ovh", "tinyurl.com", "bit.ly", "bitly.com"]; // will expand this later
+        const urlShorteners = ["sl.powerpcfan.xyz", "blinkl.ink", "sl.expect.ovh", "tinyurl.com", "bit.ly", "bitly.com"]; // will expand this later
 
         for (const shortener of urlShorteners) {
             if (hostname === shortener) {
                 return false; // prevent my shortener from shortening already shortened links which is pointless and can cause infinite redirect loops
             }
-        }
-
-        // url for testing what happens on the UI side if a site is blocked
-        if (url === "https://blockedsite.com") {
-            return false;
         }
 
         if (isDomainBlocked(hostname, blockedDomains)) {

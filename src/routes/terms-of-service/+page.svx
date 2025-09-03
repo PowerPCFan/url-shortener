@@ -1,0 +1,51 @@
+# BlinkLink Terms of Service
+
+### Last updated: September 2, 2025 (01:22 AM UTC)
+
+
+### Welcome to BlinkLink (“we,” “our,” or “us”). By using our URL shortener (the “Service”), you agree to the following Terms of Service (“Terms,” "ToS"). If you do not agree, please do not use the Service.
+
+
+### 1. Use of the Service
+
+You are responsible for all activity that occurs under your shortened links.
+
+You agree not to use our Service for:
+
+- Malware, phishing, spam, or scams.
+- Adult content.
+- Content that is illegal, abusive, harmful, or violates the rights of others.
+- Circumventing blocks, filters, or other security measures.
+
+We may remove any link that violates these Terms at any time.
+
+
+### 2. No Guarantee of Availability
+
+We try to keep the Service online, but we do not guarantee uptime, speed, or that links will remain active forever.
+
+Links may be removed at any time, without notice, especially if they are flagged for abuse.
+
+
+### 3. Data & Privacy
+
+We do not use cookies or tracking technologies, however we may log basic information such as IP address, date/time, and usage statistics, to operate and improve our Service. We will not sell any of your data to third parties.
+
+
+### 4. Limitation of Liability
+
+We provide the Service “as is” without warranties of any kind.
+
+We are not responsible for damages resulting from use or inability to use the Service, including loss of data, revenue, or reputation.
+
+
+### 5. Termination
+
+We may terminate your access to the Service at any time, without notice, if you violate these Terms.
+
+
+### 6. Changes to These Terms
+
+We may update these Terms from time to time. Continued use of the Service after changes means you accept the new Terms.
+
+### <u>By using BlinkLink, you acknowledge that you have read, understood, and agree to these Terms.</u>

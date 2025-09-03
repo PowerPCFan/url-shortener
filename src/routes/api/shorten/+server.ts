@@ -11,7 +11,7 @@ function response(data: object, status: number): Response {
 
 export const POST: RequestHandler = async ({ request }) => {
     const _protocol = request.headers.get("x-forwarded-proto") || "https";
-    const _host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "sl.powerpcfan.xyz";
+    const _host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "blinkl.ink";
     const shortenerUrl = `${_protocol}://${_host}`;
 
     let { url } = await request.json();
