@@ -77,6 +77,7 @@
         align-items: center;
         justify-content: center;
         padding-block: 1rem;
+        margin: 0;
 
         h1 {
             font-size: 2.5rem;
@@ -95,7 +96,7 @@
 
             &.main-url-input {
                 width: 100%;
-                max-width: 440px;
+                max-width: 500px;
             }
         }
 

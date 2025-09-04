@@ -17,6 +17,7 @@
         border-radius: 12px;
         padding: 1.5rem;
         box-shadow: 0.3rem 0.3rem 0.75rem 0 rgba(0, 0, 0, 0.3);
+
         width: 80vw;
         height: fit-content;
         max-width: 600px;
@@ -26,8 +27,9 @@
         }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 600px) {
         .card {
+            width: 100%;
             max-width: 100%;
         }
     }

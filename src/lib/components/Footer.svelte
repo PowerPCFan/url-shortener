@@ -2,7 +2,7 @@
     <div class="footer-content">
         <p>&copy; 2025 BlinkLink. All rights reserved.</p>
         <p>Made by <a href="https://powerpcfan.xyz" target="_blank">PowerPCFan</a></p>
-        <p class="smaller">Note: BlinkLink is not affiliated with <a href="https://www.blinklink.net" target="_blank">BlinkLink by TAPCO</a>.</p>
+        <p class="smaller">Note: This site is not affiliated with <a href="https://www.blinklink.net" target="_blank">BlinkLink by TAPCO</a>.</p>
     </div>
 </footer>
 

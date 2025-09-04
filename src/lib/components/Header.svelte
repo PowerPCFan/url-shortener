@@ -1,4 +1,6 @@
 <script>
+    import { fade } from "svelte/transition";
+
     let isMenuOpen = $state(false);
 
     function toggleMenu() {isMenuOpen = !isMenuOpen}
@@ -11,25 +13,25 @@
         <h1>BlinkLink</h1>
     </div>
     <div class="right-side">
-        <button class="hamburger" class:open={isMenuOpen} onclick={toggleMenu} aria-label="Toggle menu">
-        <div class="hamburger-icon">
-            <div class="icon-1" class:a={isMenuOpen}></div>
-            <div class="icon-2" class:b={isMenuOpen}></div>
-            <div class="icon-3" class:c={isMenuOpen}></div>
-            <div class="clear"></div>
-        </div>
+        <button class="hamburger-button" class:open={isMenuOpen} onclick={toggleMenu} aria-label="Toggle menu">
+            <div class="hamburger-icon">
+                <div class="icon-1" class:a={isMenuOpen}></div>
+                <div class="icon-2" class:b={isMenuOpen}></div>
+                <div class="icon-3" class:c={isMenuOpen}></div>
+                <div class="clear"></div>
+            </div>
         </button>
 
         <nav class:open={isMenuOpen}>
             <a class="navbar-item" href="/" onclick={closeMenu}>Home</a>
             <a class="navbar-item" href="/terms-of-service" onclick={closeMenu}>Terms of Service</a>
         </nav>
+        
+        {#if isMenuOpen}
+            <div transition:fade={{ duration: 500 }} onkeydown={void(0)} onclick={closeMenu} class="overlay" tabindex="-1" role="dialog" aria-modal="true"></div>
+        {/if}
     </div>
 </header>
-
-{#if isMenuOpen}
-    <div onkeydown={void(0)} onclick={closeMenu} class="overlay" tabindex="-1" role="dialog" aria-modal="true"></div>
-{/if}
 
 <style lang="scss">
     header {
@@ -46,6 +48,7 @@
         height: fit-content;
         width: 100%;
         background-color: var(--dark-darker);
+        z-index: 100;
     }
 
     .left-side {
@@ -60,7 +63,7 @@
         display: flex;
         align-items: center;
 
-        .hamburger {
+        .hamburger-button {
             display: none;
             align-items: center;
             justify-content: center;
@@ -70,7 +73,8 @@
             padding: 0;
             width: 2rem;
             height: 2rem;
-            z-index: 1001;
+            position: relative;
+            z-index: 10003;
 
             .hamburger-icon {
                 position: relative;
@@ -90,30 +94,31 @@
 
             .icon-1, .icon-2, .icon-3 {
                 position: absolute;
-                width: 1.1rem;
+                width: 1.5rem;
                 height: 0.120rem;
                 background-color: var(--light);
-                transition: all 400ms cubic-bezier(.84, .06, .52, 1.8);
+                // transition: all 400ms cubic-bezier(.84, .06, .52, 1.8);
+                transition: transform 400ms cubic-bezier(0.84, 0.06, 0.52, 1), opacity 400ms cubic-bezier(0.84, 0.06, 0.52, 1);
             }
 
             .icon-1 {
                 transform: translateY(-8px);
-                animation-delay: 100ms;
 
                 &.a {
-                    transform: rotate(40deg);
+                    transform: rotate(45deg);
                 }
             }
 
             .icon-2 {
+                transform: translateY(0);
+
                 &.b {
-                    transform: rotate(-40deg);
+                    transform: rotate(-45deg);
                 }
             }
 
             .icon-3 {
                 transform: translateY(8px);
-                animation-delay: 250ms;
 
                 &.c {
                     opacity: 0;
@@ -158,27 +163,26 @@
 
     @media (max-width: 768px) {
         .right-side {
-            .hamburger {
+            .hamburger-button {
                 display: flex;
             }
             
             nav {
-                display: none;
                 position: fixed;
                 top: 0;
                 right: 0;
                 height: 100vh;
-                width: 250px;
+                width: 300px;
                 background-color: var(--dark-darker);
+                display: flex;
                 flex-direction: column;
                 padding: 4rem 0 2rem 0;
                 box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
-                z-index: 1000;
+                z-index: 10002;
                 transform: translateX(100%);
-                transition: transform 0.3s ease;
-                
+                transition: transform 0.5s cubic-bezier(0.6, 0, 0.4, 1);
+
                 &.open {
-                    display: flex;
                     transform: translateX(0);
                 }
                 
@@ -206,8 +210,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+            background-color: rgba(black, 0.5);
+            z-index: 9999;
         }
 
         .left-side h1 {
