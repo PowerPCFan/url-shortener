@@ -1,5 +1,6 @@
 <script lang="ts">
     import { notifications } from '$lib/stores/notificationStore';
+    import { browser } from '$app/environment';
 
     let { url } = $props();
 
@@ -15,11 +16,18 @@
     function goToUrl() {
         window.open(url, "_blank");
     }
+
+    function shortenNewUrl() {
+        if (browser) {
+            window.location.href = "/";
+        }
+    }
 </script>
 
 <div>
     <button onclick={onCopy}><i class="fa-solid fa-copy"></i> Copy</button>
     <button onclick={goToUrl}><i class="fa-solid fa-globe"></i> Open</button>
+    <button onclick={shortenNewUrl}><i class="fa-solid fa-arrows-rotate"></i> Shorten another</button>
 </div>
 
 <style lang="scss">
@@ -37,7 +45,7 @@
         color: var(--light);
         font-family: var(--stack);
         border: none;
-        padding: 0.5rem 1rem;
+        padding: 0.4rem 0.8rem;
         cursor: pointer;
         transition: background-color 0.2s ease-in-out;
 

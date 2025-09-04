@@ -85,7 +85,7 @@ export async function urlAllowed(url: string): Promise<boolean> {
             return false; // Invalid URL is considered "blocked"
         }
 
-        const urlShorteners = ["sl.powerpcfan.xyz", "blinkl.ink", "sl.expect.ovh", "tinyurl.com", "bit.ly", "bitly.com"]; // will expand this later
+        const urlShorteners = ["sl.powerpcfan.xyz", "blinkl.ink", "sl.expect.ovh", "tinyurl.com", "bit.ly", "bitly.com", "t.ly", "is.gd", "shorturl.at", "goo.gl"]; // will expand this later
 
         for (const shortener of urlShorteners) {
             if (hostname === shortener) {

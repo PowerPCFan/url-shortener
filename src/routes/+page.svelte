@@ -1,7 +1,8 @@
 <script lang="ts">
     import URLActions from '$lib/components/URLActions.svelte';
-    import Card from "$lib/components/Card.svelte";
+    import StatusCard from "$lib/components/StatusCard.svelte";
     import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
+    import Card from '$lib/components/Card.svelte';
 
     let url = $state("");
     let short = $state("");
@@ -44,25 +45,29 @@
 </script>
 
 <svelte:head>
-    <title>Home</title>
+    <title>Home | BlinkLink</title>
 </svelte:head>
 
 <div class="page-container">
-    <h1>Shorten URL</h1>
-    <input class="main-url-input" onkeydown={(e) => e.key.toLowerCase() === "enter" && shorten()} bind:value={url} placeholder="Paste your URL..." />
-    <button onclick={shorten}>Shorten!</button>
+    <Card>
+        <div class="url-shortener-card-content">
+            <h1>Shorten URL</h1>
+            <input class="main-url-input" onkeydown={(e) => e.key.toLowerCase() === "enter" && shorten()} bind:value={url} placeholder="Paste your URL..." />
+            <button onclick={shorten}>Shorten!</button>
 
-    {#if loading}
-        <LoadingSpinner />
-    {:else if short}
-        <Card title="Your URL is ready!">
-            Short URL:
-            <input class="short-url-input-display" readonly={true} onclick={event => event?.currentTarget?.select()} bind:value={short} />
-            <URLActions url={short} />
-        </Card>
-    {:else if error}
-        <Card error>{error}</Card>
-    {/if}
+            {#if loading}
+                <LoadingSpinner />
+            {:else if short}
+                <StatusCard title="Your URL is ready!">
+                    Short URL:
+                    <input class="short-url-input-display" readonly={true} onclick={event => event?.currentTarget?.select()} bind:value={short} />
+                    <URLActions url={short} />
+                </StatusCard>
+            {:else if error}
+                <StatusCard error>{error}</StatusCard>
+            {/if}
+        </div>
+    </Card>
 </div>
 
 <style lang="scss">
@@ -71,10 +76,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-
-        & > * {
-            margin-block: 1.2rem;
-        }
+        padding-block: 1rem;
 
         h1 {
             font-size: 2.5rem;
@@ -88,12 +90,12 @@
             margin: 0;
 
             &.short-url-input-display {
-                width: 90%;
+                width: 100%;
             }
 
             &.main-url-input {
-                width: 90vw;
-                max-width: 430px;
+                width: 100%;
+                max-width: 440px;
             }
         }
 
@@ -111,6 +113,23 @@
             &:hover {
                 background-color: var(--primary-darker);
             }
+        }
+    }
+
+    .url-shortener-card-content {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > * {
+            margin-block: 1.2rem;
+        }
+
+        h1 {
+            text-align: center;
         }
     }
 </style>

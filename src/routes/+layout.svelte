@@ -1,5 +1,4 @@
 <script lang="ts">
-    import BubbleBackground from "$lib/components/BubbleBackground.svelte";
     import Notification from "$lib/components/Notification.svelte";
     import Header from "$lib/components/Header.svelte";
     import Footer from "$lib/components/Footer.svelte";
@@ -12,9 +11,7 @@
 <Header />
 
 <main>
-    <BubbleBackground>
-        {@render children()}
-    </BubbleBackground>
+    {@render children()}
 </main>
 
 <Footer />

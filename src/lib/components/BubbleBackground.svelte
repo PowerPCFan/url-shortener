@@ -38,30 +38,30 @@
     </div>
 </div>
 
-<style>
-    .bubble {
-        transition: all 15s linear;
-        aspect-ratio: 1;
-        position: absolute;
-        width: 100%;
-        background-color: var(--primary);
-        border-radius: 100%;
-        opacity: 0.02;
-        z-index: -1;
-    }
-
-    .circles {
-        pointer-events: none;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-    }
-
+<style lang="scss">
     .balls {
         width: 100%;
         height: 100%;
+
+        .circles {
+            pointer-events: none;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+
+            .bubble {
+                transition: all 15s linear;
+                aspect-ratio: 1;
+                position: absolute;
+                width: 100%;
+                background-color: var(--primary);
+                border-radius: 100%;
+                opacity: 0.02;
+                z-index: -1;
+            }
+        }
     }
 </style>
