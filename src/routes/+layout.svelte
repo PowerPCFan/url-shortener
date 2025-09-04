@@ -3,32 +3,39 @@
     import Header from "$lib/components/Header.svelte";
     import Footer from "$lib/components/Footer.svelte";
     import { page } from "$app/state";
-    import { onMount } from "svelte";
 
     let { children } = $props();
 
-    // variable initializations
-    let _origin: string = $state("");
-    let _pathname: string = $state("");
-    let _queryParams: string = $state("");
-    let _hash: string = $state("");
+    // // variable initializations
+    // let _origin: string = $state("");
+    // let _pathname: string = $state("");
+    // let _queryParams: string = $state("");
+    // let _hash: string = $state("");
 
     let fullUrl: string = $state("");
     let canonicalUrl: string = $state("");
-    let favicon = $state("");
+    let favicon: string = $state("");
 
-    // constants
+    // // constants
+    // const description = "BlinkLink is a simple URL shortener with a modern and user-friendly interface.";
+
+    // onMount(() => {
+    //     _origin = page.url.origin;
+    //     _pathname = page.url.pathname;
+    //     _queryParams = page.url.search;
+    //     _hash = page.url.hash;
+
+    //     fullUrl = _origin + _pathname + _queryParams + _hash;
+    //     canonicalUrl = _origin + _pathname;
+    //     favicon = _origin + "/favicon.png";
+    // });
+
     const description = "BlinkLink is a simple URL shortener with a modern and user-friendly interface.";
 
-    onMount(() => {
-        _origin = page.url.origin;
-        _pathname = page.url.pathname;
-        _queryParams = page.url.search;
-        _hash = page.url.hash;
-
-        fullUrl = _origin + _pathname + _queryParams + _hash;
-        canonicalUrl = _origin + _pathname;
-        favicon = _origin + "/favicon.png";
+    $effect(() => {
+        canonicalUrl = page.url.origin + page.url.pathname;
+        fullUrl = page.url.origin + page.url.pathname + page.url.search + page.url.hash;
+        favicon = page.url.origin + "/favicon.png";
     });
 </script>
 
