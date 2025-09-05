@@ -1,5 +1,6 @@
 <script>
     import { fade } from "svelte/transition";
+    import Logo from "$lib/components/Logo.svelte";
 
     let isMenuOpen = $state(false);
 
@@ -10,6 +11,9 @@
 
 <header>
     <div class="left-side">
+        <div class="logo-container">
+            <Logo s />
+        </div>
         <h1>BlinkLink</h1>
     </div>
     <div class="right-side">
@@ -52,10 +56,23 @@
     }
 
     .left-side {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .logo-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-right: 0.5rem;
+        }
+
         h1 {
             font-size: 1.8rem;
             margin: 0;
             padding-block: 0.7rem;
+            display: inline-block;
         }
     }
 

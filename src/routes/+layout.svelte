@@ -27,7 +27,7 @@
 
     //     fullUrl = _origin + _pathname + _queryParams + _hash;
     //     canonicalUrl = _origin + _pathname;
-    //     favicon = _origin + "/favicon.png";
+    //     favicon = _origin + "/favicon.ico";
     // });
 
     const description = "BlinkLink is a simple URL shortener with a modern and user-friendly interface.";
@@ -35,7 +35,7 @@
     $effect(() => {
         canonicalUrl = page.url.origin + page.url.pathname;
         fullUrl = page.url.origin + page.url.pathname + page.url.search + page.url.hash;
-        favicon = page.url.origin + "/favicon.png";
+        favicon = page.url.origin + "/logo-transparent.png";
     });
 </script>
 
